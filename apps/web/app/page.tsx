@@ -5,8 +5,8 @@ export default async function Home() {
   return <div>
     {users.map(user => (
       <div key={user.id}>
-        Username: {user.username}
-        Password: {user.password}
+        <p>Username: {user.username}</p>
+        <p>Password: {user.password}</p>
       </div>
     ))}
   </div>
