@@ -5,22 +5,22 @@ const app = express();
 app.use(express.json());
 
 app.get('/', async (req, res) => {
-  const todos = await prisma.todo.findMany()
+  const users = await prisma.user.findMany()
   res.json({
-    todos
+    users
   })
 })
 
 app.post('/', async (req, res) => {
-  const addTodo = await prisma.todo.create({
+  const addTodo = await prisma.user.create({
     data: {
-      task: Math.random().toString(),
-      userId: ''
+      username: Math.random().toString(),
+      password: Math.random().toString()
     }
   })
 
   res.json({
-    message: "Todo has been added"
+    message: "User has been created"
   })
 })
 
