@@ -1,0 +1,45 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+    container_name: todo-backend
+    environment:
+      - DATABASE_URL=postgresql://postgres:mysecretpassword@db:5432/postgres
+    ports:
+      - '3001:3001'
+    depends_on:
+      - db
+
+  ws:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.ws
+    container_name: todo-ws
+    environment:
+      - DATABASE_URL=postgresql://postgres:mysecretpassword@db:5432/postgres
+    ports:
+      - '8080:8080'
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.frontend
+      args: 
+        - DATABASE_URL=postgresql://postgres:mysecretpassword@db:5432/postgres
+    container_name: todo-frontend
+    environment:
+      - DATABASE_URL=postgresql://postgres:mysecretpassword@db:5432/postgres
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+  
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+    ports:
+      - '5432:5432'
