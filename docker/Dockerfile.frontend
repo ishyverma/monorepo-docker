@@ -1,7 +1,6 @@
 FROM oven/bun:1
 
 ARG DATABASE_URL
-
 WORKDIR /app
 
 COPY ./packages ./packages
@@ -12,8 +11,6 @@ COPY ./apps/web ./apps/web
 
 RUN bun install
 RUN bun run db:generate
-RUN DATABASE_URL=${DATABASE_URL} bun run build
 
 EXPOSE 3000
-
-CMD [ "bun", "run", "start:frontend" ]
+CMD [ "bun", "run", "start:web" ]
